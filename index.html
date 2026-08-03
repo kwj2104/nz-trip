@@ -212,12 +212,12 @@
 
   // 1) the article's own lead photo — usually the best single shot
   function leadPhoto(title) {
-    return getJSON(wp('action=query&prop=pageimages&piprop=original&redirects=1&titles=' + encodeURIComponent(title)))
+    return getJSON(wp('action=query&prop=pageimages&piprop=thumbnail&pithumbsize=1000&redirects=1&titles=' + encodeURIComponent(title)))
       .then(d => {
         const out = [], pages = (d.query && d.query.pages) || {};
         Object.keys(pages).forEach(k => {
-          const o = pages[k].original;
-          if (o && /\.jpe?g$/i.test(o.source)) out.push({src:o.source, name:(o.source.split('/').pop()||'photo')});
+          const o = pages[k].thumbnail;
+          if (o && o.source) out.push({src:o.source, name:decodeURIComponent((o.source.split('/').pop()||'photo').replace(/^\d+px-/,''))});
         });
         return out;
       }).catch(() => []);
@@ -314,6 +314,7 @@
         if (loaded === 1) { show(0); ph.appendChild(credit); }
         if (loaded === 2) addControls();
       };
+      img.onerror = () => { loaded++; };
       img.src = p.src;
     });
 
