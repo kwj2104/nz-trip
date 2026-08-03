@@ -192,9 +192,60 @@
 <script>
 (function(){
   const MAX = 5;
-  const SKIP = /(map|locator|logo|flag|coat[_ ]of[_ ]arms|icon|montage[_ ]template|\.svg|\.gif)/i;
+  const DEBUG = location.search.indexOf('debug') > -1;
+  // junk that shows up in Wikipedia page image lists but isn't a photo of the place
+  const JUNK = /(commons|wiki|logo|icon|symbol|flag|coat.of.arms|locator|\bmap\b|ambox|edit|padlock|pencil|arrow|increase|decrease|steady|question|folder|portal|disambig|stub|speaker|play.button|nuvola|crystal|gnome|oojs|barnstar|featured|blank|placeholder|template|banner|divider|spacer|signature|graph|chart|diagram|plaque|seal)/i;
+
+  const api = q => 'https://en.wikipedia.org/w/api.php?format=json&origin=*&' + q;
+
+  function getJSON(url) {
+    return fetch(url, {mode:'cors'}).then(r => r.ok ? r.json() : Promise.reject(r.status));
+  }
+
+  // lead photo of the article
+  function leadPhoto(title) {
+    return getJSON(api('action=query&prop=pageimages&piprop=original&redirects=1&titles=' + encodeURIComponent(title)))
+      .then(d => {
+        const pages = d && d.query && d.query.pages || {};
+        const out = [];
+        Object.keys(pages).forEach(k => {
+          const o = pages[k].original;
+          if (o && o.source && /\.jpe?g$/i.test(o.source)) out.push({src: o.source, name: pages[k].title});
+        });
+        return out;
+      }).catch(() => []);
+  }
+
+  // all images used on the article, as 800px thumbnails
+  function articlePhotos(title) {
+    return getJSON(api('action=query&generator=images&gimlimit=40&redirects=1&prop=imageinfo&iiprop=url|size|mime&iiurlwidth=800&titles=' + encodeURIComponent(title)))
+      .then(d => {
+        const pages = d && d.query && d.query.pages || {};
+        return Object.keys(pages).map(k => pages[k]).map(p => {
+          const ii = p.imageinfo && p.imageinfo[0];
+          if (!ii) return null;
+          const fname = (p.title || '').replace(/^File:/, '');
+          if (JUNK.test(fname)) return null;
+          if (ii.mime !== 'image/jpeg' && !(ii.mime === 'image/png' && ii.width >= 1200)) return null;
+          if (ii.width < 640) return null;            // thumbnails/badges
+          if (ii.width / ii.height > 4) return null;  // panorama strips crop badly in a 16:9 tile
+          return {src: ii.thumburl || ii.url, name: fname};
+        }).filter(Boolean);
+      }).catch(() => []);
+  }
+
+  function collect(titles, i, acc, done) {
+    if (i >= titles.length || acc.length >= MAX) return done(acc);
+    const t = titles[i];
+    Promise.all([leadPhoto(t), articlePhotos(t)]).then(([lead, rest]) => {
+      lead.concat(rest).forEach(p => {
+        if (acc.length < MAX && !acc.some(a => a.src === p.src)) acc.push(p);
+      });
+      collect(titles, i + 1, acc, done);
+    });
+  }
+
   document.querySelectorAll('.ph').forEach(ph => {
-    // styled fallback first, so the page looks intentional even offline
     const name = ph.closest('.card').querySelector('h3').textContent;
     const col = getComputedStyle(ph.closest('.card').querySelector('.chip')).backgroundColor;
     const fb = document.createElement('div');
@@ -202,25 +253,15 @@
     fb.style.background = 'linear-gradient(135deg,' + col + ', rgba(0,0,0,0.45)), ' + col;
     fb.textContent = name;
     ph.appendChild(fb);
-    loadGallery(ph, [ph.dataset.wiki, ph.dataset.alt].filter(Boolean), 0);
+
+    const titles = [ph.dataset.wiki, ph.dataset.alt].filter(Boolean);
+    collect(titles, 0, [], photos => {
+      if (DEBUG) fb.textContent = name + ' [' + photos.length + ']';
+      if (photos.length) build(ph, photos);
+    });
   });
 
-  function loadGallery(ph, titles, ti) {
-    if (ti >= titles.length) return;
-    const t = encodeURIComponent(titles[ti].replace(/ /g,'_'));
-    fetch('https://en.wikipedia.org/api/rest_v1/page/media-list/' + t)
-      .then(r => r.ok ? r.json() : Promise.reject())
-      .then(d => {
-        const items = (d.items || []).filter(it =>
-          it.type === 'image' && it.srcset && it.srcset[0] &&
-          /\.jpe?g$/i.test(it.title || '') && !SKIP.test(it.title || ''));
-        if (!items.length) return Promise.reject();
-        build(ph, items.slice(0, MAX));
-      })
-      .catch(() => loadGallery(ph, titles, ti + 1));
-  }
-
-  function build(ph, items) {
+  function build(ph, photos) {
     const slides = [], dots = [];
     let cur = 0, loaded = 0;
     const dotWrap = document.createElement('div'); dotWrap.className = 'dots';
@@ -228,14 +269,12 @@
     credit.className = 'credit ok'; credit.target = '_blank'; credit.rel = 'noopener';
     credit.textContent = 'Wikimedia Commons';
 
-    items.forEach((it, i) => {
-      let src = it.srcset[0].src;
-      if (src.startsWith('//')) src = 'https:' + src;
-      src = src.replace(/\/(\d+)px-/, '/800px-');
+    photos.forEach((p, i) => {
       const img = new Image();
-      img.alt = (it.title || '').replace(/^File:/, '').replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+      img.alt = p.name.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
       img.referrerPolicy = 'no-referrer';
       img.loading = i === 0 ? 'eager' : 'lazy';
+      img.dataset.page = 'https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(p.name.replace(/ /g, '_'));
       img.onload = () => {
         loaded++;
         ph.appendChild(img);
@@ -243,15 +282,10 @@
         dot.onclick = e => { e.stopPropagation(); show(slides.indexOf(img)); };
         dotWrap.appendChild(dot); dots.push(dot);
         slides.push(img);
-        if (loaded === 1) {
-          show(0);
-          ph.appendChild(credit);
-        }
+        if (loaded === 1) { show(0); ph.appendChild(credit); }
         if (loaded === 2) addControls();
       };
-      img.onerror = () => {};
-      img.src = src;
-      img.dataset.page = 'https://commons.wikimedia.org/wiki/' + encodeURIComponent(it.title || '');
+      img.src = p.src;
     });
 
     function show(i) {
