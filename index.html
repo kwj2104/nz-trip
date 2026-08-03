@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Zealand — Oct 27 → Nov 6, 2026</title>
+<style>
+  :root { color-scheme: light dark; }
+  .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --page:#f9f9f7; --ink-1:#0b0b0b; --ink-2:#52514e;
+    --muted:#898781; --grid:#e1e0d9; --border:rgba(11,11,11,0.10);
+    --ni:#2a78d6; --si:#eb6834; --syd:#52514e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --page:#0d0d0d; --ink-1:#ffffff; --ink-2:#c3c2b7;
+      --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,0.10);
+      --ni:#3987e5; --si:#d95926; --syd:#898781;
+    }
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--page); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .viz-root { max-width:1080px; margin:0 auto; padding:28px 18px 40px; color:var(--ink-1); }
+  h1 { font-size:26px; font-weight:700; letter-spacing:-0.015em; }
+  .sub { color:var(--ink-2); font-size:14px; margin-top:6px; max-width:70ch; }
+
+  .strip { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 6px; }
+  .fl { background:var(--surface-1); border:1px solid var(--border); border-radius:99px;
+        padding:6px 14px; font-size:12.5px; color:var(--ink-2); }
+  .fl b { color:var(--ink-1); font-weight:600; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px; margin-top:20px; }
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:14px;
+          overflow:hidden; display:flex; flex-direction:column; }
+  .ph { position:relative; aspect-ratio:16/9; overflow:hidden; }
+  .ph .fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+       font-size:15px; font-weight:650; color:#fff; letter-spacing:0.02em; text-align:center; padding:0 20px; }
+  .ph img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .35s; }
+  .ph img.ok { opacity:1; }
+  .ph .credit { position:absolute; right:6px; bottom:4px; font-size:9.5px; color:#fff; opacity:0;
+       text-shadow:0 1px 2px rgba(0,0,0,.8); text-decoration:none; z-index:3; }
+  .ph:hover .credit.ok { opacity:.85; }
+  .nav { position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:30px; height:30px;
+       border:none; border-radius:50%; background:rgba(0,0,0,.42); color:#fff; font-size:16px; line-height:1;
+       cursor:pointer; opacity:0; transition:opacity .15s; display:flex; align-items:center; justify-content:center; }
+  .nav.prev { left:8px; } .nav.next { right:8px; }
+  .ph:hover .nav { opacity:1; }
+  .dots { position:absolute; left:0; right:0; bottom:7px; display:flex; gap:5px; justify-content:center; z-index:3; }
+  .dots i { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.5); cursor:pointer;
+       box-shadow:0 0 3px rgba(0,0,0,.5); }
+  .dots i.on { background:#fff; }
+
+  .body { padding:13px 15px 15px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .chip { font-size:11.5px; font-weight:650; color:#fff; border-radius:99px; padding:3px 10px; }
+  .chip.ni { background:var(--ni); } .chip.si { background:var(--si); } .chip.syd { background:var(--syd); }
+  .tag { font-size:11.5px; color:var(--ink-2); border:1px solid var(--grid); border-radius:99px; padding:2.5px 9px; }
+  h3 { font-size:16.5px; font-weight:650; letter-spacing:-0.01em; }
+  ul { padding-left:18px; color:var(--ink-2); font-size:13.5px; line-height:1.55; }
+  li b { color:var(--ink-1); font-weight:600; }
+  .book { margin-top:auto; padding-top:8px; font-size:11.5px; color:var(--muted); border-top:1px solid var(--grid); }
+  .book b { color:var(--ink-2); font-weight:600; }
+
+  .foot { margin-top:26px; font-size:12.5px; color:var(--muted); line-height:1.6; max-width:80ch; }
+  .foot b { color:var(--ink-2); }
+</style></head>
+<body>
+<div class="viz-root">
+  <h1>New Zealand — 11 Days, Both Islands</h1>
+  <div class="sub">Oct 25 – Nov 7, 2026 · two travelers · hiking, scenery &amp; wildlife · mid-range ·
+    Sydney bookends with the NZ loop Auckland → Wellington ✈ Queenstown → Christchurch</div>
+
+  <div class="strip">
+    <span class="fl"><b>Sun Oct 25</b> · land Sydney 8:20am</span>
+    <span class="fl"><b>Tue Oct 27</b> · SYD → AKL ~9:00am ✈</span>
+    <span class="fl"><b>Sun Nov 1</b> · WLG → ZQN ✈</span>
+    <span class="fl"><b>Fri Nov 6</b> · CHC → SYD ~6pm ✈</span>
+    <span class="fl"><b>Sat Nov 7</b> · fly home 11:20am</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card"><div class="ph" data-wiki="Sydney Opera House"></div><div class="body">
+      <div class="meta"><span class="chip syd">Oct 25–26</span><span class="tag">Sydney warm-up</span></div>
+      <h3>Sydney</h3>
+      <ul><li><b>Day 1:</b> stay outside, stay awake — Circular Quay, Opera House, Botanic Gardens</li>
+          <li><b>Day 2:</b> Bondi → Coogee coastal walk or the Manly ferry; evening at The Rocks</li></ul>
+      <div class="book">Jet-lag tip: NZ is 2 hrs ahead of Sydney — these two days do the adjusting for you.</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Auckland"></div><div class="body">
+      <div class="meta"><span class="chip ni">Oct 27</span><span class="tag">✈ 3 hr + drive 0 hr</span></div>
+      <h3>Auckland</h3>
+      <ul><li>Land ~3:30pm, pick up rental car #1</li>
+          <li>Easy evening: Viaduct Harbour dinner or Mt Eden summit at sunset</li></ul>
+      <div class="book"><b>Book:</b> SYD→AKL flight · car #1 (AKL → Wellington one-way)</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Hobbiton Movie Set"></div><div class="body">
+      <div class="meta"><span class="chip ni">Oct 28</span><span class="tag">Drive ~3 hr total</span></div>
+      <h3>Hobbiton → Rotorua</h3>
+      <ul><li><b>Hobbiton Movie Set</b> late-morning Signature Tour (~2.5 hr, NZ$130)</li>
+          <li>On to Rotorua (~1 hr); evening soak at the lakeside <b>Polynesian Spa</b></li></ul>
+      <div class="book"><b>Book now:</b> Hobbiton timed departures sell out</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Wai-O-Tapu" data-alt="Waiotapu"></div><div class="body">
+      <div class="meta"><span class="chip ni">Oct 29</span><span class="tag">Drive ~2.5 hr</span></div>
+      <h3>Rotorua geothermal → Tongariro</h3>
+      <ul><li><b>Wai-O-Tapu</b> or Te Puia — geysers, boiling mud, the Champagne Pool</li>
+          <li><b>Redwoods</b> forest walk, then via Taupo (Huka Falls stop) to National Park Village</li></ul>
+      <div class="book">Stay 2 nights in National Park Village / Whakapapa</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Tongariro Alpine Crossing"></div><div class="body">
+      <div class="meta"><span class="chip ni">Oct 30</span><span class="tag">Hike 19.4 km</span></div>
+      <h3>Tongariro Alpine Crossing</h3>
+      <ul><li>Volcanic craters, Red Crater, the <b>Emerald Lakes</b> — a top-tier world day hike</li>
+          <li>Late-Oct snow possible up high — check conditions; guides/crampons sometimes advised</li>
+          <li>Backup if weather turns: Tama Lakes or Taranaki Falls tracks</li></ul>
+      <div class="book"><b>Book:</b> free DOC booking (mandatory) + shuttle from the village</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Wellington"></div><div class="body">
+      <div class="meta"><span class="chip ni">Oct 31</span><span class="tag">Drive ~4.5 hr</span></div>
+      <h3>Wellington</h3>
+      <ul><li>Waterfront, <b>Te Papa</b> (free), Mt Victoria lookout</li>
+          <li><b>Zealandia by Night</b> — your best realistic chance to see a wild kiwi</li></ul>
+      <div class="book"><b>Book:</b> Zealandia night tour — small groups, sells out</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Queenstown, New Zealand"></div><div class="body">
+      <div class="meta"><span class="chip si">Nov 1</span><span class="tag">✈ 1 hr 15</span></div>
+      <h3>Fly to Queenstown</h3>
+      <ul><li>Morning on Cuba St, drop car #1, early-afternoon flight — <b>left window seat</b> for the Alps</li>
+          <li>Pick up car #2; gondola to Bob's Peak, obligatory Fergburger</li></ul>
+      <div class="book"><b>Book:</b> WLG→ZQN direct · car #2 (ZQN → Christchurch one-way)</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Lake Te Anau" data-alt="Te Anau"></div><div class="body">
+      <div class="meta"><span class="chip si">Nov 2</span><span class="tag">Drive ~2 hr</span></div>
+      <h3>Te Anau</h3>
+      <ul><li>Scenic drive down Lake Wakatipu; lakefront walk</li>
+          <li>Evening <b>Te Anau Glowworm Caves</b> boat tour</li></ul>
+      <div class="book">Staying here makes tomorrow's Milford day far easier. <b>Book:</b> caves tour</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Milford Sound"></div><div class="body">
+      <div class="meta"><span class="chip si">Nov 3</span><span class="tag">Big day · drive 5.5 hr</span></div>
+      <h3>Milford Sound</h3>
+      <ul><li>Milford Road at dawn — Eglinton Valley, Mirror Lakes; check NZTA status the night before</li>
+          <li><b>Key Summit hike</b> (~3 hr) + early-afternoon <b>cruise</b> — spring waterfalls at full blast</li>
+          <li>Watch for fur seals, dolphins, Fiordland crested penguins; back to Queenstown by evening</li></ul>
+      <div class="book"><b>Book:</b> small-boat cruise · fuel up in Te Anau (none past it)</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Routeburn Track"></div><div class="body">
+      <div class="meta"><span class="chip si">Nov 4</span><span class="tag">Drive ~2 hr</span></div>
+      <h3>Glenorchy → Wānaka</h3>
+      <ul><li>Morning on the Glenorchy road; walk the first stretch of the <b>Routeburn Track</b> (2–3 hr)</li>
+          <li>Afternoon over the <b>Crown Range</b> to Wānaka; sunset at #ThatWanakaTree</li></ul>
+      <div class="book">No booking needed for a Routeburn day walk</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Hooker Valley Track" data-alt="Aoraki / Mount Cook"></div><div class="body">
+      <div class="meta"><span class="chip si">Nov 5</span><span class="tag">Drive ~2.5 hr</span></div>
+      <h3>Wānaka → Aoraki / Mt Cook</h3>
+      <ul><li>Short morning walk (Diamond Lake lookout — Roys Peak closed for lambing until Nov 10)</li>
+          <li>Lindis Pass to Mt Cook; <b>Hooker Valley Track</b> (3 hr) in golden evening light</li>
+          <li>Night: <b>Aoraki Dark Sky Reserve</b> stargazing</li></ul>
+      <div class="book"><b>Book early:</b> Mt Cook Village lodging (or Twizel) · stargazing tour</div>
+    </div></div>
+
+    <div class="card"><div class="ph" data-wiki="Church of the Good Shepherd, Lake Tekapo" data-alt="Lake Tekapo"></div><div class="body">
+      <div class="meta"><span class="chip si">Nov 6</span><span class="tag">Drive ~4 hr · ✈ 3.5 hr</span></div>
+      <h3>Tekapo → Christchurch → Sydney</h3>
+      <ul><li>Optional sunrise Kea Point walk; <b>Lake Tekapo</b> stop (Church of the Good Shepherd)</li>
+          <li>Drop car in Christchurch by ~4pm; ~6pm flight, lands Sydney ~7:45pm</li>
+          <li><b>Sat Nov 7:</b> fly home from Sydney, 11:20am</li></ul>
+      <div class="book"><b>Book:</b> CHC→SYD flight · Sydney airport hotel for Nov 6</div>
+    </div></div>
+
+  </div>
+
+  <div class="foot">
+    <b>Weather flex:</b> Tongariro (Oct 30) and Milford (Nov 3) are the weather-sensitive days — both have
+    built-in backups, and Milford can swap with the Glenorchy morning if the forecast disagrees.
+    <b>Driving:</b> left side; real times run ~20% over the map apps. <b>Budget ballpark:</b> ~NZ$3,500–4,500
+    per person excluding international flights. Photos load live from Wikipedia/Wikimedia Commons when you're online.
+  </div>
+</div>
+<script>
+(function(){
+  const MAX = 5;
+  const SKIP = /(map|locator|logo|flag|coat[_ ]of[_ ]arms|icon|montage[_ ]template|\.svg|\.gif)/i;
+  document.querySelectorAll('.ph').forEach(ph => {
+    // styled fallback first, so the page looks intentional even offline
+    const name = ph.closest('.card').querySelector('h3').textContent;
+    const col = getComputedStyle(ph.closest('.card').querySelector('.chip')).backgroundColor;
+    const fb = document.createElement('div');
+    fb.className = 'fallback';
+    fb.style.background = 'linear-gradient(135deg,' + col + ', rgba(0,0,0,0.45)), ' + col;
+    fb.textContent = name;
+    ph.appendChild(fb);
+    loadGallery(ph, [ph.dataset.wiki, ph.dataset.alt].filter(Boolean), 0);
+  });
+
+  function loadGallery(ph, titles, ti) {
+    if (ti >= titles.length) return;
+    const t = encodeURIComponent(titles[ti].replace(/ /g,'_'));
+    fetch('https://en.wikipedia.org/api/rest_v1/page/media-list/' + t)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(d => {
+        const items = (d.items || []).filter(it =>
+          it.type === 'image' && it.srcset && it.srcset[0] &&
+          /\.jpe?g$/i.test(it.title || '') && !SKIP.test(it.title || ''));
+        if (!items.length) return Promise.reject();
+        build(ph, items.slice(0, MAX));
+      })
+      .catch(() => loadGallery(ph, titles, ti + 1));
+  }
+
+  function build(ph, items) {
+    const slides = [], dots = [];
+    let cur = 0, loaded = 0;
+    const dotWrap = document.createElement('div'); dotWrap.className = 'dots';
+    const credit = document.createElement('a');
+    credit.className = 'credit ok'; credit.target = '_blank'; credit.rel = 'noopener';
+    credit.textContent = 'Wikimedia Commons';
+
+    items.forEach((it, i) => {
+      let src = it.srcset[0].src;
+      if (src.startsWith('//')) src = 'https:' + src;
+      src = src.replace(/\/(\d+)px-/, '/800px-');
+      const img = new Image();
+      img.alt = (it.title || '').replace(/^File:/, '').replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+      img.referrerPolicy = 'no-referrer';
+      img.loading = i === 0 ? 'eager' : 'lazy';
+      img.onload = () => {
+        loaded++;
+        ph.appendChild(img);
+        const dot = document.createElement('i');
+        dot.onclick = e => { e.stopPropagation(); show(slides.indexOf(img)); };
+        dotWrap.appendChild(dot); dots.push(dot);
+        slides.push(img);
+        if (loaded === 1) {
+          show(0);
+          ph.appendChild(credit);
+        }
+        if (loaded === 2) addControls();
+      };
+      img.onerror = () => {};
+      img.src = src;
+      img.dataset.page = 'https://commons.wikimedia.org/wiki/' + encodeURIComponent(it.title || '');
+    });
+
+    function show(i) {
+      if (!slides.length) return;
+      cur = (i + slides.length) % slides.length;
+      slides.forEach((s, j) => s.classList.toggle('ok', j === cur));
+      dots.forEach((d, j) => d.classList.toggle('on', j === cur));
+      credit.href = slides[cur].dataset.page;
+    }
+    function addControls() {
+      const prev = document.createElement('button'); prev.className = 'nav prev'; prev.innerHTML = '&#8249;';
+      const next = document.createElement('button'); next.className = 'nav next'; next.innerHTML = '&#8250;';
+      prev.setAttribute('aria-label','Previous photo'); next.setAttribute('aria-label','Next photo');
+      prev.onclick = e => { e.stopPropagation(); show(cur - 1); };
+      next.onclick = e => { e.stopPropagation(); show(cur + 1); };
+      ph.appendChild(prev); ph.appendChild(next); ph.appendChild(dotWrap);
+    }
+  }
+})();
+</script>
+</body></html>
