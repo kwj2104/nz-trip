@@ -69,6 +69,16 @@
   .sw { width:18px; height:0; border-top:2.5px solid; border-radius:2px; }
   .sw.ni { border-color:var(--ni); } .sw.si { border-color:var(--si); }
   .sw.fly { border-top-style:dashed; border-color:var(--muted); }
+
+  .check { list-style:none; padding:0; margin:4px 0 0; }
+  .check li { display:flex; gap:10px; align-items:flex-start; padding:7px 4px; border-bottom:1px solid var(--grid); font-size:13.5px; color:var(--ink-2); }
+  .check li:last-child { border-bottom:none; }
+  .check input { width:17px; height:17px; margin-top:1px; accent-color:var(--ni); flex:0 0 auto; cursor:pointer; }
+  .check label { cursor:pointer; line-height:1.5; }
+  .check b { color:var(--ink-1); font-weight:600; }
+  .check .when { display:inline-block; font-size:10.5px; font-weight:650; border-radius:99px; padding:1.5px 8px; margin-left:6px; color:#fff; vertical-align:1px; }
+  .when.now { background:var(--si); } .when.soon { background:var(--ni); } .when.later { background:var(--muted); }
+  .check li.done label { opacity:.45; text-decoration:line-through; }
   .foot { margin-top:26px; font-size:12.5px; color:var(--muted); line-height:1.6; max-width:85ch; }
   .foot b { color:var(--ink-2); }
   .foot a { color:var(--ink-2); }
@@ -206,6 +216,23 @@
       Fly Christchurch → Sydney the evening of Nov 6; home from Sydney 11:20am Nov 7.</div>
   </div></div>
 
+  <div class="card"><div class="body">
+    <h3>Tickets &amp; bookings to lock in ahead of time</h3>
+    <ul class="check">
+      <li><input type="checkbox" id="ck0"><label for="ck0"><b>Flights: SYD→AKL (Oct 27), WLG→ZQN (Nov 1), CHC→SYD (Nov 6)</b><span class="when now">book now</span><br>shoulder-season directs sell out</label></li>
+      <li><input type="checkbox" id="ck1"><label for="ck1"><b>Rental cars ×2 — AKL→Wellington and Queenstown→Christchurch, both one-way</b><span class="when now">book now</span><br>one-way stock is limited</label></li>
+      <li><input type="checkbox" id="ck2"><label for="ck2"><b>Hobbiton Signature Tour — Oct 28, late morning</b><span class="when now">book now</span><br>timed departures book out weeks ahead</label></li>
+      <li><input type="checkbox" id="ck3"><label for="ck3"><b>Mt Cook Village or Twizel lodging — night of Nov 5</b><span class="when now">book now</span><br>very few rooms exist at all</label></li>
+      <li><input type="checkbox" id="ck4"><label for="ck4"><b>Milford Sound cruise — Nov 3, early afternoon, small boat</b><span class="when soon">soon</span><br>best sailings go first</label></li>
+      <li><input type="checkbox" id="ck5"><label for="ck5"><b>Tongariro Crossing: free DOC booking + shuttle — Oct 30</b><span class="when soon">soon</span><br>booking is mandatory for all hikers</label></li>
+      <li><input type="checkbox" id="ck6"><label for="ck6"><b>Zealandia by Night — Oct 31</b><span class="when soon">soon</span><br>small groups, regularly sells out</label></li>
+      <li><input type="checkbox" id="ck7"><label for="ck7"><b>Te Anau Glowworm Caves — Nov 2 evening</b><span class="when soon">soon</span><br>timed entries</label></li>
+      <li><input type="checkbox" id="ck8"><label for="ck8"><b>Dark-sky stargazing tour — Mt Cook/Tekapo, Nov 5</b><span class="when later">closer to trip</span><br>weather-dependent; book a flexible slot</label></li>
+      <li><input type="checkbox" id="ck9"><label for="ck9"><b>Sydney airport hotel — night of Nov 6</b><span class="when later">closer to trip</span><br>any time before you fly</label></li>
+    </ul>
+    <div class="book">Checkboxes save on this device. Rough order of urgency: red first, blue next, gray whenever.</div>
+  </div></div>
+
   <div class="foot">
     <b>Weather flex:</b> Tongariro (Oct 30) and Milford (Nov 3) are the weather-sensitive days — both have
     built-in backups, and Milford can swap with the Glenorchy morning if the forecast disagrees.
@@ -213,4 +240,20 @@
     per person excluding international flights. Photos: Wikipedia / Wikimedia Commons (click any photo for its source and license).
   </div>
 </div>
+<script>
+(function(){
+  try {
+    var KEY = 'nz-trip-checklist';
+    var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    document.querySelectorAll('.check input').forEach(function(cb){
+      if (saved[cb.id]) { cb.checked = true; cb.closest('li').classList.add('done'); }
+      cb.addEventListener('change', function(){
+        cb.closest('li').classList.toggle('done', cb.checked);
+        saved[cb.id] = cb.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e) {}
+      });
+    });
+  } catch(e) {}
+})();
+</script>
 </body></html>
